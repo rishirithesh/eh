@@ -1,0 +1,47 @@
+┌──(kali㉿kali)-[~]
+└─$ pwd
+ls -lh kali_scan_report.*
+/home/kali
+ls: cannot access 'kali_scan_report.*': No such file or directory
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ sS\
+> 
+sS: command not found
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ 
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ nmap -sV -sC -p 135,445,5432 10.0.2.2 -oN /home/kali/scan_report.txt
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-10-13 23:53 -0400
+Nmap scan report for 10.0.2.2
+Host is up (0.0011s latency).
+
+PORT     STATE SERVICE       VERSION
+135/tcp  open  msrpc         Microsoft Windows RPC
+445/tcp  open  microsoft-ds?
+5432/tcp open  postgresql    PostgreSQL DB
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2026-10-14T03:53:54
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3.1.1: 
+|_    Message signing enabled and required
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 17.80 seconds
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ ls -l /home/kali/scan_report.txt
+-rw-rw-r-- 1 kali kali 834 Oct 13 23:53 /home/kali/scan_report.txt
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ mousepad /home/kali/scan_report.txt
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ 
