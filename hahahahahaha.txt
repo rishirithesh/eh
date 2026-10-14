@@ -1,0 +1,31 @@
+whois - mit.edu
+
+nslookup -type=MX nasa.gov
+
+google dorking - nasa.gov
+
+subfinder -d tesla.com
+
+nmap -sn 10.0.2.0/24 --> Host discovery
+
+nmap -sV -p 53 10.0.2.3
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-10-13 09:44 -0400
+Nmap scan report for 10.0.2.3
+Host is up (0.00077s latency).
+
+PORT   STATE SERVICE VERSION
+53/tcp open  domain  dnsmasq
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.84 seconds
+
+
+ip -br addr
+
+ip route
+
+wireshark - eth0 
+ping -c 4 1.1.1.1
+nslookup nasa.gov
+curl -I https://wikipedia.org
