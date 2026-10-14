@@ -1,0 +1,250 @@
+Passive reconnaissance commands
+1. WHOIS
+whois example.com
+
+
+Retrieves domain registration, registrar, and nameserver information.
+2. DNS reconnaissance — dig
+dig example.com
+dig example.com A
+dig example.com AAAA
+dig example.com MX
+dig example.com NS
+dig example.com TXT
+dig example.com SOA
+dig +short example.com
+dig -x 8.8.8.8
+
+
+Retrieves DNS records, mail servers, nameservers, text records, and reverse DNS information.
+3. nslookup
+nslookup example.com
+nslookup -type=A example.com
+nslookup -type=MX example.com
+nslookup -type=NS example.com
+nslookup -type=TXT example.com
+
+
+Queries DNS to resolve domain names and retrieve selected record types.
+4. Robtex
+https://www.robtex.com/
+
+
+Search for a domain or IP to explore DNS records, related domains, mail servers, and infrastructure relationships.
+5. Maltego
+https://www.maltego.com/
+
+
+Create a graph, add a domain entity, and run available transforms to discover related DNS records, domains, IPs, and other public entities.
+6. DNSDumpster
+https://dnsdumpster.com/
+
+
+Enter a domain to view discovered subdomains, DNS records, and potential hosting relationships.
+7. theHarvester
+theHarvester -d example.com -b crtsh
+theHarvester -d example.com -b duckduckgo
+theHarvester -d example.com -b all
+
+
+Collects publicly available emails, hosts, and subdomains. Available data sources depend on the installed version and configuration.
+8. Subfinder
+subfinder -d example.com
+subfinder -d example.com -silent
+subfinder -d example.com -o subdomains.txt
+
+
+Discovers subdomains through passive sources.
+9. Amass — passive mode
+amass enum -passive -d example.com
+amass enum -passive -d example.com -o subdomains.txt
+
+
+Collects subdomains from public intelligence sources without actively probing the target.
+10. Certificate Transparency — crt.sh
+https://crt.sh/?q=%25.example.com
+
+
+Searches certificate records for domain names that may reveal additional subdomains.
+11. Shodan
+https://www.shodan.io/
+
+
+Search existing internet-wide scan data for exposed hosts, services, banners, and ports. It requires an account for some features.
+Example searches:
+hostname:example.com
+domain:example.com
+port:443
+
+
+12. Censys
+https://search.censys.io/
+
+
+Searches indexed internet-facing hosts, services, certificates, and associated metadata.
+13. Google Dorks
+site:example.com
+site:example.com filetype:pdf
+site:example.com intitle:"index of"
+site:example.com inurl:login
+
+
+Finds publicly indexed pages and files. Search results do not prove a vulnerability.
+14. Wayback Machine
+https://web.archive.org/
+
+
+Examines archived website pages and historical content.
+
+2. Active reconnaissance commands
+Run these only against authorized lab machines or systems within your approved assessment scope.
+1. Ping
+ping -c 4 192.0.2.10
+
+
+Sends ICMP echo requests to test network reachability.
+2. Traceroute
+traceroute 192.0.2.10
+
+
+Shows responding intermediate network hops toward a destination.
+On Windows:
+tracert 192.0.2.10
+
+
+3. Nmap — host discovery and port scanning
+nmap -sn 192.0.2.0/24
+nmap 192.0.2.10
+nmap -p 22,80,443 192.0.2.10
+nmap -p- 192.0.2.10
+nmap -sV 192.0.2.10
+nmap -O 192.0.2.10
+nmap -sC -sV 192.0.2.10
+nmap -Pn 192.0.2.10
+nmap -oN scan.txt 192.0.2.10
+
+
+Option	Purpose
+-sn	Host discovery without a port scan
+-p	Scans specified ports
+-p-	Scans all TCP ports
+-sV	Detects service versions
+-O	Attempts OS detection
+-sC	Runs default NSE scripts
+-Pn	Skips host discovery and treats the host as online
+-oN	Saves normal output to a file
+4. Nmap — scan types
+nmap -sT 192.0.2.10
+nmap -sS 192.0.2.10
+nmap -sU -p 53,123 192.0.2.10
+nmap -sA 192.0.2.10
+nmap -sV --version-light 192.0.2.10
+
+
+- -sT — TCP connect scan.
+- -sS — TCP SYN scan; generally requires elevated privileges.
+- -sU — UDP port scan.
+- -sA — TCP ACK scan, useful for studying firewall filtering behavior; it does not directly establish whether a port is open.
+5. Nmap — DNS and scripts
+nmap -sV --script=banner 192.0.2.10
+nmap --script=dns-service-discovery example.com
+
+
+These commands inspect service banners or perform supported DNS-related discovery. NSE script availability and behavior depend on the installed Nmap version.
+6. Netcat (nc)
+nc -vz 192.0.2.10 22
+nc -vz 192.0.2.10 80
+nc -vz 192.0.2.10 443
+
+
+Tests TCP connectivity to specified ports.
+7. Hping3
+sudo hping3 -S -p 80 -c 3 192.0.2.10
+sudo hping3 -S -p 443 -c 3 192.0.2.10
+
+
+Sends custom TCP SYN packets and observes responses. Use only in an authorized test environment.
+8. WhatWeb
+whatweb http://192.0.2.10
+whatweb https://example.com
+whatweb -v https://example.com
+
+
+Fingerprints website technologies, frameworks, and server indicators using HTTP responses.
+9. Nikto
+nikto -h http://192.0.2.10
+nikto -h https://example.com
+
+
+Checks web servers for potentially unsafe files, outdated components, and common configuration problems.
+10. Gobuster — directories and files
+gobuster dir -u http://192.0.2.10 -w /path/to/wordlist.txt
+gobuster dir -u http://192.0.2.10 -w /path/to/wordlist.txt -x php,html,txt
+
+
+Enumerates web directories and files by sending HTTP requests.
+11. Gobuster — DNS mode
+gobuster dns -d example.com -w /path/to/wordlist.txt
+
+
+Tests candidate subdomain names against DNS. This is active enumeration.
+12. Feroxbuster
+feroxbuster -u http://192.0.2.10 -w /path/to/wordlist.txt
+
+
+Discovers web paths and files through HTTP requests.
+13. Dirsearch
+dirsearch -u http://192.0.2.10
+
+
+Enumerates common web directories and files using HTTP requests.
+14. Amass — active enumeration
+amass enum -active -d example.com
+
+
+Uses active discovery techniques in addition to applicable passive sources. Active enumeration may generate traffic to target infrastructure.
+15. OpenVAS / Greenbone
+Open the Greenbone Security Assistant web interface.
+Create or select an authorized target.
+Configure a scan task.
+Select an appropriate scan configuration.
+Run the task and review the vulnerability report.
+
+
+Performs vulnerability assessment; the exact workflow depends on the Greenbone version and installation.
+16. Nessus
+Open the Nessus web interface.
+New Scan → Select a scan template.
+Configure the authorized target IP or hostname.
+Save → Launch.
+Review vulnerabilities, severity, evidence, and remediation.
+
+
+Identifies known vulnerabilities and security misconfigurations. A full scan may take time depending on the target and scan configuration.
+17. Metasploit — service auxiliary checks
+msfconsole
+search type:auxiliary scanner
+
+
+Opens Metasploit and searches for auxiliary scanner modules. Choose a module appropriate for your authorized lab and read its options before running it.
+
+3. Quick command revision table
+Objective	Tool / command
+Domain registration	whois example.com
+Find IP address	dig +short example.com
+Find mail servers	dig example.com MX
+Find nameservers	dig example.com NS
+Passive subdomain enumeration	subfinder -d example.com
+Passive Amass enumeration	amass enum -passive -d example.com
+Check host reachability	ping -c 4 192.0.2.10
+Discover live hosts	nmap -sn 192.0.2.0/24
+Scan common ports	nmap 192.0.2.10
+Scan all TCP ports	nmap -p- 192.0.2.10
+Identify services	nmap -sV 192.0.2.10
+Attempt OS detection	nmap -O 192.0.2.10
+Test a TCP port	nc -vz 192.0.2.10 443
+Fingerprint website	whatweb https://example.com
+Check web-server issues	nikto -h http://192.0.2.10
+Enumerate web paths	gobuster dir -u http://192.0.2.10 -w /path/to/wordlist.txt
+Assess vulnerabilities	Nessus / Greenbone GUI
+Important: 192.0.2.10 and 192.0.2.0/24 are documentation-only example addresses, not real scan targets. Replace them with an authorized lab target. A domain's DNS records or a third-party scanner's results do not, by themselves, authorize you to probe its infrastructure.
