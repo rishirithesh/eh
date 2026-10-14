@@ -1,3 +1,12 @@
 SYSMON
 git clone https://github.com/SwiftOnSecurity/sysmon-config.git
 sysmon64.exe -c .\sysmon-config\sysmonconfig-export.xml
+
+
+
+
+
+
+
+Harvester
+ -b hackertarget.crtsh
