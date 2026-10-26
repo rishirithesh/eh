@@ -1,0 +1,29 @@
+-h	whois -h whois.iana.org example.com	Queries a specified WHOIS server.
+-p	whois -p 43 example.com	Specifies the server port.
+-I	whois -I example.com	Queries the WHOIS server for the .com registry, where supported.
+-H	whois -H example.com	Suppresses some legal disclaimers and boilerplate, where supported.
+-a	whois -a example.com	Enables queries to all available WHOIS servers, where supported.
+-r	whois -r example.com	Disables recursive lookups, where supported.
+-R	whois -R example.com	Disables referral following, where supported.
+-v	whois -v example.com	Requests verbose output, where supported.
+
+sudo netdiscover -i eth0 -r 192.168.1.0/24
+sudo netdiscover -i eth0 -r 192.168.1.0/24 -P > results.txt
+
+
+Flag	Full option	Purpose
+-h	--help	Displays the help menu.
+-d	--domain	Specifies the target domain or organization.
+-b	--source	Specifies the data source or sources.
+-l	--limit	Limits the number of results retrieved.
+-S	--start	Sets the starting result offset.
+-f	--filename	Saves results to output files.
+-p	--proxies	Uses configured proxies.
+-s	--shodan	Uses Shodan to retrieve information about discovered hosts, where supported.
+-e	--dns-server	Specifies a DNS server.
+-r	--dns-resolve	Resolves discovered hosts.
+-n	--dns-lookup	Enables reverse DNS lookups.
+-c	--dns-brute	Enables DNS brute-force discovery.
+-t	--take-over	Checks discovered hosts for potential subdomain takeover issues.
+-q	--quiet	Suppresses certain warnings and messages.
+
