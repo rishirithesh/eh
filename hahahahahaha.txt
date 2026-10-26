@@ -29,3 +29,5 @@ wireshark - eth0
 ping -c 4 1.1.1.1
 nslookup nasa.gov
 curl -I https://wikipedia.org
+
+theHarvester -d target.com -b all
